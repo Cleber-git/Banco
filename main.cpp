@@ -9,17 +9,18 @@
 
 int main() {
 
-	Conta c;
+	Conta c("Robert Nesta", "111.222.333-44", 123456789, "extrato.txt");
 	arquivo a;
 	std::vector<std::string> extrato;
 	
-
-	c.depositar(50);
-
+	c.show();
+	c.depositar(3000);
 	c.sacar(100);
+	c.sacar(399.97);
+
 	c.showExtrato(extrato);
-	std::cout << "Saldo da conta:             R$ " << c.saldo << ".00" << std::endl;
+	c.getSaldo();
+
 
 	return 0;
-
 }

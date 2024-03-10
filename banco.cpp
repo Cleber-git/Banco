@@ -5,18 +5,36 @@
 #include <fstream>
 
 
-void Conta::sacar(int ValorSacar) {
+
+
+
+Conta::Conta(std::string nomeTitular, std::string CPF, int numeroConta, std::string nomeExtrato){
+    this->cpf = CPF;
+    this->nomeTitular = nomeTitular;
+    this->numeroConta = numeroConta;
+    this->saldo = 0;
 
     arquivo a;
-    if (ValorSacar <= saldo) {
+    a.limparExtrato(nomeExtrato);
+    
+}
+
+
+void Conta::sacar( int ValorSacar ) {
+
+    arquivo a;
+
+    if ( ValorSacar <= saldo ) {
         saldo -= ValorSacar;
-        std::cout << "Saque efetuado com sucesso: R$ " << ValorSacar << ".00" << std::endl;
+        std::cout << "Saque efetuado:     R$ " << ValorSacar << ".00" << std::endl;
         std::string ValorString = std::to_string(ValorSacar);
-        a.registerAction("Saque: ");
+        a.registerAction("Saque:     ");
         a.registerAction(ValorString);
         
     }else{
+
         std::cout << "Saldo insuficiente para saque desse valor!" << std::endl;
+
     }
 
 }
@@ -24,6 +42,7 @@ void Conta::sacar(int ValorSacar) {
 void Conta::depositar(int valorDepositar ) {
 
     arquivo a;
+
     if (valorDepositar > 0) {
 
         saldo += valorDepositar;
@@ -86,6 +105,7 @@ void Conta::showExtrato( std::vector<std::string> &extrato ){
 
     a.pedirExtrato(extrato);
 
+    
     std::cout << ">> ********************************************** <<" << std::endl;
     std::cout << ">> ************** EXTRATO BANCÁRIO ************** <<" << std::endl;
     std::cout << ">> ********************************************** <<" << std::endl;
@@ -114,4 +134,47 @@ void arquivo::registerAction(std::string text){
     
     
     f.close();
+}
+
+void Conta::getSaldo() const {
+    std::cout << "Saldo da conta: R$ " << saldo  << ".00" << std::endl;
+    std::cout << "--------------------------------------------------------" << std::endl;
+    
+
+
+}
+
+
+void arquivo::limparExtrato(std::string nomeExtrato){
+    std::ofstream f(nomeExtrato);
+}
+
+void Conta::getNomeTitular() const{
+
+    std::cout << nomeTitular << std::endl;
+
+}
+
+void Conta::getNumeroConta() const{
+
+    std::cout << numeroConta << std::endl;
+
+}
+
+void Conta::getCpf() const{
+
+    std::cout << cpf << std::endl;
+
+}
+
+void Conta::show() const {
+
+    std::cout << "==============================================" << std::endl;
+    std::cout << "    Olá " <<nomeTitular<<", Seja bem vindo!" << std::endl;
+    std::cout << "==============================================" << std::endl;
+    std::cout << "----------------------------------------------" << std::endl;
+    std::cout << "Conta: " << numeroConta << std::endl;
+    std::cout << "Cpf: " << cpf << std::endl;
+    std::cout << "----------------------------------------------" << std::endl;
+
 }

@@ -5,25 +5,44 @@
 
 
 
-struct Conta{
+class Conta{
 
-    int numeroConta = 0;
+    int numeroConta;
+    int saldo;
     std::string cpf;
-    int saldo = 1000;
     std::string nomeTitular;
 
+public:
+
+    Conta(std::string nomeTitular, std::string CPF, int NumeroConta, 
+    std::string  nomeExtrato);
     void sacar( int ValorSacar);
     void depositar( int valorDepositar);
     void showExtrato( std::vector<std::string> &extrato);
+    void show() const;
+
+
+    // métodos acessores 
+    //// Getters
+
+    void getSaldo() const;
+    void getNomeTitular() const;
+    void getCpf() const;
+    void getNumeroConta() const;
     
 
 };
 
-struct arquivo
+class arquivo
 {
+public:
     int contLine();
     void pedirExtrato(std::vector<std::string> &extrato);  
     void registerAction(std::string text);
+    void limparExtrato(std::string nomeExtrato);
+    
+
+
 };
 
 
