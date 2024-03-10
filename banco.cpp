@@ -8,15 +8,15 @@
 
 
 
-Conta::Conta(std::string nomeTitular, std::string CPF, int numeroConta, std::string nomeExtrato){
-    this->cpf = CPF;
-    this->nomeTitular = nomeTitular;
-    this->numeroConta = numeroConta;
-    this->saldo = 0;
+// Aplicando conceito de lista de inicialização(inicialization list); 
 
+
+Conta::Conta(std::string nometitular, std::string CPF, int numeroconta, std::string nomeExtrato): cpf(CPF),
+              nomeTitular(nometitular),
+              numeroConta(numeroconta)
+{
     arquivo a;
     a.limparExtrato(nomeExtrato);
-    
 }
 
 

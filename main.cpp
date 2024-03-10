@@ -9,7 +9,7 @@
 
 int main() {
 
-	Conta c("Robert Nesta", "111.222.333-44", 123456789, "extrato.txt");
+	Conta c("Rena Zarábia", "111.222.333-44", 123456789, "extrato.txt");
 	arquivo a;
 	std::vector<std::string> extrato;
 	
