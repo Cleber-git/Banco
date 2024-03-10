@@ -10,26 +10,26 @@
 
 // Aplicando conceito de lista de inicialização(inicialization list); 
 
-
-Conta::Conta(std::string nometitular, std::string CPF, int numeroconta, std::string nomeExtrato): cpf(CPF),
-              nomeTitular(nometitular),
-              numeroConta(numeroconta)
+Conta::Conta( std::string nometitular, std::string CPF, int numeroconta, std::string nomeExtrato ): numeroConta( numeroconta ),
+              saldo( 0 ),
+              cpf( CPF ),
+              nomeTitular( nometitular )
 {
     arquivo a;
-    a.limparExtrato(nomeExtrato);
+    a.limparExtrato( nomeExtrato );
 }
 
 
-void Conta::sacar( int ValorSacar ) {
+void Conta::sacar( const int ValorSacar ) {
 
     arquivo a;
 
     if ( ValorSacar <= saldo ) {
         saldo -= ValorSacar;
         std::cout << "Saque efetuado:     R$ " << ValorSacar << ".00" << std::endl;
-        std::string ValorString = std::to_string(ValorSacar);
-        a.registerAction("Saque:     ");
-        a.registerAction(ValorString);
+        std::string ValorString = std::to_string( ValorSacar );
+        a.registerAction( "Saque:     " );
+        a.registerAction( ValorString );
         
     }else{
 
@@ -39,17 +39,17 @@ void Conta::sacar( int ValorSacar ) {
 
 }
 
-void Conta::depositar(int valorDepositar ) {
+void Conta::depositar( const int valorDepositar ) {
 
     arquivo a;
 
-    if (valorDepositar > 0) {
+    if ( valorDepositar > 0 ) {
 
         saldo += valorDepositar;
         std::cout << "Deposito efetuado:  R$ " << valorDepositar << ".00" << std::endl;
-        std::string ValorString = std::to_string(valorDepositar);
-        a.registerAction("Depósito: ");
-        a.registerAction(ValorString);
+        std::string ValorString = std::to_string( valorDepositar );
+        a.registerAction( "Depósito: " );
+        a.registerAction( ValorString );
 
     } else {
 
@@ -59,22 +59,22 @@ void Conta::depositar(int valorDepositar ) {
 
 }
 
-void arquivo::pedirExtrato(std::vector <std::string>&extrato){
+void arquivo::pedirExtrato( std::vector <std::string>&extrato ){
 
     
 
     int count = contLine();
 
-    std::ifstream f("extrato.txt");
+    std::ifstream f( "extrato.txt" );
 
     std::string line;
 
     int cont = 0;
-    if(f.is_open()){
+    if( f.is_open() ){
         
-        while (getline(f, line))
+        while ( getline( f, line ) )
         {
-            extrato.push_back(line);
+            extrato.push_back( line );
         }
     }
     f.close();
@@ -84,12 +84,12 @@ void arquivo::pedirExtrato(std::vector <std::string>&extrato){
 
 int arquivo::contLine(){
 
-    std::ifstream f("extrato.txt");
+    std::ifstream f( "extrato.txt" );
     std::string line;
     int cont=0;
-    if(f.is_open()){
+    if( f.is_open() ){
         
-        while (getline(f, line))
+        while ( getline( f, line ) )
         {
             cont++;
         }
@@ -98,12 +98,12 @@ int arquivo::contLine(){
     return cont;
 }
 
-void Conta::showExtrato( std::vector<std::string> &extrato ){
+void Conta::showExtrato( std::vector<std::string> &extrato ) const{
 
 
     arquivo a;
 
-    a.pedirExtrato(extrato);
+    a.pedirExtrato( extrato );
 
     
     std::cout << ">> ********************************************** <<" << std::endl;
@@ -115,14 +115,14 @@ void Conta::showExtrato( std::vector<std::string> &extrato ){
 
         std::cout << extrato[i];
         
-        if(i % 2 != 0) std::cout << std::endl;
+        if( i % 2 != 0 ) std::cout << std::endl;
     
     }
     std::cout << std::endl;
 
 }
 
-void arquivo::registerAction(std::string text){
+void arquivo::registerAction( const std::string text ){
 
     std::ofstream f("extrato.txt", std::ios::app);
 
@@ -145,7 +145,7 @@ void Conta::getSaldo() const {
 }
 
 
-void arquivo::limparExtrato(std::string nomeExtrato){
+void arquivo::limparExtrato( const std::string nomeExtrato ){
     std::ofstream f(nomeExtrato);
 }
 
@@ -170,7 +170,7 @@ void Conta::getCpf() const{
 void Conta::show() const {
 
     std::cout << "==============================================" << std::endl;
-    std::cout << "    Olá " <<nomeTitular<<", Seja bem vindo!" << std::endl;
+    std::cout << "    Olá " << nomeTitular <<", Seja bem vindo!" << std::endl;
     std::cout << "==============================================" << std::endl;
     std::cout << "----------------------------------------------" << std::endl;
     std::cout << "Conta: " << numeroConta << std::endl;

@@ -14,11 +14,11 @@ class Conta{
 
 public:
 
-    Conta(std::string nomeTitular, std::string CPF, int NumeroConta, 
-    std::string  nomeExtrato);
-    void sacar( int ValorSacar);
-    void depositar( int valorDepositar);
-    void showExtrato( std::vector<std::string> &extrato);
+    Conta( std::string nomeTitular, std::string CPF, int NumeroConta, 
+    std::string  nomeExtrato );
+    void sacar( const int ValorSacar );
+    void depositar( const int valorDepositar );
+    void showExtrato( std::vector<std::string> &extrato ) const;
     void show() const;
 
 
@@ -37,9 +37,9 @@ class arquivo
 {
 public:
     int contLine();
-    void pedirExtrato(std::vector<std::string> &extrato);  
-    void registerAction(std::string text);
-    void limparExtrato(std::string nomeExtrato);
+    void pedirExtrato( std::vector<std::string> &extrato );  
+    void registerAction( const std::string text );
+    void limparExtrato( const std::string nomeExtrato );
     
 
 

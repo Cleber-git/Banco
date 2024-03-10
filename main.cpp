@@ -9,16 +9,16 @@
 
 int main() {
 
-	Conta c("Rena Zarábia", "111.222.333-44", 123456789, "extrato.txt");
+	Conta c( "Rena Zarábia", "111.222.333-44", 123456789, "extrato.txt" );
 	arquivo a;
 	std::vector<std::string> extrato;
 	
 	c.show();
-	c.depositar(3000);
-	c.sacar(100);
-	c.sacar(399.97);
+	c.depositar( 3000 );
+	c.sacar( 100 );
+	c.sacar( 399.97 );
 
-	c.showExtrato(extrato);
+	c.showExtrato( extrato );
 	c.getSaldo();
 
 
