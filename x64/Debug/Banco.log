@@ -1,3 +1,0 @@
-﻿  main.cpp
-C:\Users\pc\Documents\Banco\Banco\main.cpp(63,10): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
-  Banco.vcxproj -> C:\Users\pc\Documents\Banco\x64\Debug\Banco.exe

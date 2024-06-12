@@ -1,4 +1,7 @@
-#include "banco.h"
+#include "../includes/banco.hpp"
+#include "../includes/titular.hpp"
+#include "../includes/arquivo.hpp"
+
 #include <vector>
 #include <ctime>
 #include <iostream>
@@ -6,25 +9,30 @@
 
 
 
+// membro estático deve ser inicializado fora de qualquer escopo
+int Conta::qtdConta = 0;
+int arquivo::qtdArquivo = 0;
+
 
 
 // Aplicando conceito de lista de inicialização(inicialization list); 
 
-Conta::Conta( std::string nometitular, std::string CPF, int numeroconta, std::string nomeExtrato ): numeroConta( numeroconta ),
+Conta::Conta( titular t,int numeroconta, std::string nomeExtrato ):numeroConta( numeroconta ),
               saldo( 0 ),
-              cpf( CPF ),
-              nomeTitular( nometitular )
+              cpf( t.restauraCpf() ),
+              nomeTitular( t.restauraNome() )
+              
 {
-    arquivo a;
+    qtdConta++;
     a.limparExtrato( nomeExtrato );
 }
 
 
 void Conta::sacar( const int ValorSacar ) {
 
-    arquivo a;
 
     if ( ValorSacar <= saldo ) {
+        
         saldo -= ValorSacar;
         std::cout << "Saque efetuado:     R$ " << ValorSacar << ".00" << std::endl;
         std::string ValorString = std::to_string( ValorSacar );
@@ -40,8 +48,6 @@ void Conta::sacar( const int ValorSacar ) {
 }
 
 void Conta::depositar( const int valorDepositar ) {
-
-    arquivo a;
 
     if ( valorDepositar > 0 ) {
 
@@ -59,49 +65,11 @@ void Conta::depositar( const int valorDepositar ) {
 
 }
 
-void arquivo::pedirExtrato( std::vector <std::string>&extrato ){
-
-    
-
-    int count = contLine();
-
-    std::ifstream f( "extrato.txt" );
-
-    std::string line;
-
-    int cont = 0;
-    if( f.is_open() ){
-        
-        while ( getline( f, line ) )
-        {
-            extrato.push_back( line );
-        }
-    }
-    f.close();
-
-}
 
 
-int arquivo::contLine(){
-
-    std::ifstream f( "extrato.txt" );
-    std::string line;
-    int cont=0;
-    if( f.is_open() ){
-        
-        while ( getline( f, line ) )
-        {
-            cont++;
-        }
-    }
-    f.close();
-    return cont;
-}
-
-void Conta::showExtrato( std::vector<std::string> &extrato ) const{
 
 
-    arquivo a;
+void Conta::showExtrato( std::vector<std::string> &extrato ) {
 
     a.pedirExtrato( extrato );
 
@@ -122,19 +90,7 @@ void Conta::showExtrato( std::vector<std::string> &extrato ) const{
 
 }
 
-void arquivo::registerAction( const std::string text ){
 
-    std::ofstream f("extrato.txt", std::ios::app);
-
-    if (!f.is_open()) return;
-
-    f << text;
-    f <<"\n";
-
-    
-    
-    f.close();
-}
 
 void Conta::getSaldo() const {
     std::cout << "Saldo da conta: R$ " << saldo  << ".00" << std::endl;
@@ -145,9 +101,7 @@ void Conta::getSaldo() const {
 }
 
 
-void arquivo::limparExtrato( const std::string nomeExtrato ){
-    std::ofstream f(nomeExtrato);
-}
+
 
 void Conta::getNomeTitular() const{
 
@@ -178,3 +132,4 @@ void Conta::show() const {
     std::cout << "----------------------------------------------" << std::endl;
 
 }
+

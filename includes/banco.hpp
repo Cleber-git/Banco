@@ -1,5 +1,9 @@
 #pragma once
 
+#include "titular.hpp"
+#include "arquivo.hpp"
+#include <string>
+
 #include <iostream>
 #include <vector>
 
@@ -11,15 +15,18 @@ class Conta{
     int saldo;
     std::string cpf;
     std::string nomeTitular;
+    arquivo a;
+
 
 public:
 
-    Conta( std::string nomeTitular, std::string CPF, int NumeroConta, 
+    Conta( titular t, int NumeroConta, 
     std::string  nomeExtrato );
     void sacar( const int ValorSacar );
     void depositar( const int valorDepositar );
-    void showExtrato( std::vector<std::string> &extrato ) const;
+    void showExtrato( std::vector<std::string> &extrato ) ;
     void show() const;
+    static int qtdConta;
 
 
     // métodos acessores 
@@ -33,17 +40,6 @@ public:
 
 };
 
-class arquivo
-{
-public:
-    int contLine();
-    void pedirExtrato( std::vector<std::string> &extrato );  
-    void registerAction( const std::string text );
-    void limparExtrato( const std::string nomeExtrato );
-    
-
-
-};
 
 
 
